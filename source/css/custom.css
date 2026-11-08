@@ -1,0 +1,58 @@
+/* ============================================================
+   Notion 暖极简 design tokens
+   来源: VoltAgent/awesome-design-md → design-md/notion/DESIGN.md
+   只覆盖浅色模式(:root:root 提升优先级并压过主题默认值)
+   ============================================================ */
+
+:root:root:not([data-theme="dark"]) {
+  /* 背景与卡片 */
+  --anzhiyu-background: #f6f5f4;   /* surface 暖纸面 */
+  --anzhiyu-card-bg: #ffffff;      /* canvas 白卡片 */
+  --anzhiyu-card-border: #e5e3df;  /* hairline 发丝边框 */
+  --anzhiyu-secondbg: #fafaf9;     /* surface-soft */
+  --anzhiyu-fontcolor: #37352f;    /* charcoal 正文 */
+  --anzhiyu-secondtext: #787671;   /* steel 次级文字 */
+  --anzhiyu-lighttext: #5d5b54;    /* slate */
+
+  /* 主色: Notion 紫药丸 */
+  --anzhiyu-main: #5645d4;
+  --anzhiyu-hovertext: #5645d4;
+  --anzhiyu-blue: #0075de;         /* Notion link-blue */
+  --anzhiyu-blue-hover: #005bab;
+
+  /* 导航遮罩 → 暖白 */
+  --anzhiyu-maskbg: rgba(255, 255, 255, 0.82);
+  --anzhiyu-maskbgdeep: rgba(255, 255, 255, 0.88);
+  --anzhiyu-meta-theme-color: #f6f5f4;
+
+  /* 引用块与滚动条 */
+  --anzhiyu-post-blockquote-bg: #fafaf9;
+  --anzhiyu-scrollbar: #c8c4be;
+
+  /* 字体: Notion Sans(Inter 系)→ 系统无衬线栈 */
+  --anzhiyu-font: -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Notion 式发丝边框卡片(细边框代替大阴影) */
+#aside-content .card-widget,
+#page,
+#post,
+.recent-post-item {
+  box-shadow: 0 1px 2px rgba(15, 15, 15, 0.04),
+    0 0 0 1px var(--anzhiyu-card-border);
+}
+
+/* 选中文字: Notion 粉彩玫瑰 */
+::selection {
+  background: #fde0ec;
+  color: #37352f;
+}
+
+/* 标题字重: Notion Sans 600 */
+h1,
+h2,
+#post-info #post-title {
+  font-weight: 600;
+}
