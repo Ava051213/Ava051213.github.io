@@ -9,7 +9,6 @@ menu:
   标签: /tags/ || anzhiyu-icon-tags
   分类: /categories/ || anzhiyu-icon-shapes
   关于: /about/ || anzhiyu-icon-paper-plane
-
 # nav相关配置
 nav:
   enable: false
@@ -57,7 +56,7 @@ copy:
 #   name: link || icon
 social:
   Github: https://github.com/Ava051213 || anzhiyu-icon-github
-  Email: mailto:3424808832@qq.com || anzhiyu-icon-envelope
+  Email: mailto:wuxuanyue051213@gmail.com || anzhiyu-icon-envelope
 
 # 作者卡片 状态
 author_status:
@@ -799,7 +798,7 @@ aside:
     category: true
   card_author:
     enable: true
-    description: # <div style="line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(255, 255, 255, 0.8);">这有关于<b style="color:#fff">产品、设计、开发</b>相关的问题和看法，还有<b style="color:#fff">文章翻译</b>和<b style="color:#fff">分享</b>。</div><div style="line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(255, 255, 255, 0.8);">相信你可以在这里找到对你有用的<b style="color:#fff">知识</b>和<b style="color:#fff">教程</b>。</div> # 默认为站点描述
+    description: Stars fade, words stay.
     name_link: /
 
   card_announcement:
@@ -1041,13 +1040,13 @@ home_top:
   timemode: date #date/updated
   title: Hi, I'm Mia
   subTitle: Stars fade, words stay
-  siteText: 'Welcome to my notes ✨'
+  siteText: 'Welcome to my notes'
   category:
-    - name: 指南
-      path: /categories/指南/
+    - name: 归档
+      path: /archives/
       shadow: var(--anzhiyu-shadow-blue)
       class: blue
-      icon: anzhiyu-icon-book
+      icon: anzhiyu-icon-box-archive
     - name: 关于
       path: /about/
       shadow: var(--anzhiyu-shadow-main)

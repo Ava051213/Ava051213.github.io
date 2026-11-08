@@ -59,7 +59,7 @@ h2,
 
 /* 文章列表分区标题(让首页功能区显式;width:100% 独占一行,避免挤占 flex 卡片位) */
 #recent-posts::before {
-  content: "📝 最新文章";
+  content: "最新文章";
   display: block;
   width: 100%;
   font-size: 20px;
@@ -91,6 +91,12 @@ div#bannerGroup {
 
 /* 首页分类筛选条(「首页/指南/更多」横条,分类少时语义不明) */
 #categoryBar {
+  display: none !important;
+}
+
+/* 右键/快捷菜单里的「博客」入口(主题硬编码,含主题作者外链) */
+a.back-menu-item[href="https://hexo.anheyu.com/"],
+.rightMenu-item.menu-link[href="/categories/"] {
   display: none !important;
 }
 
