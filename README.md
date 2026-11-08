@@ -25,5 +25,5 @@ npm run server   # http://localhost:4000
 ## 注意
 
 - `public/`、`node_modules/`、`db.json` 均不需要提交(已在 .gitignore)
-- 主题通过 npm 安装(`hexo-theme-butterfly`),主题配置在根目录 `_config.butterfly.yml`
+- 主题通过 npm 安装(`hexo-theme-anzhiyu`),主题配置在根目录 `_config.anzhiyu.yml`(旧 `_config.butterfly.yml` 仅留作回退参考,已停用)
 - 不再需要手动 `hexo clean && hexo g && hexo d`,push 即发布
