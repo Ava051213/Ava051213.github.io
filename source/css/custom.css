@@ -56,3 +56,9 @@ h2,
 #post-info #post-title {
   font-weight: 600;
 }
+
+/* 隐藏首页分类筛选条(「首页/指南/更多」横条,分类少时语义不明;
+   以后分类多了想恢复,删掉这段即可) */
+#categoryBar {
+  display: none !important;
+}
