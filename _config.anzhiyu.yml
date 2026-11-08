@@ -1039,8 +1039,8 @@ css_prefix: true
 home_top:
   enable: true # 开关
   timemode: date #date/updated
-  title: 你好,我是 Mia
-  subTitle: 欢迎来我的小站
+  title: Hi, I'm Mia
+  subTitle: Stars fade, words stay
   siteText: ''
   category:
     - name: 指南
