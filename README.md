@@ -9,7 +9,7 @@ Hexo + Butterfly 主题,部署在 GitHub Pages。
 
 ```bash
 git add -A
-git commit -m "文章: 标题"
+git commit -m "Add post: <title>"
 git push
 ```
 
