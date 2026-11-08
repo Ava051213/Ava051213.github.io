@@ -50,11 +50,55 @@
   color: #37352f;
 }
 
-/* 标题字重: Notion Sans 600 */
+/* 标题字重与字号: Notion Sans 600 / 30px,给右下图标墙让位 */
 h1,
 h2,
 #post-info #post-title {
   font-weight: 600;
+}
+#random-banner .banners-title-big {
+  font-size: 30px !important;
+}
+
+/* 文章列表分区标题(让首页功能区显式) */
+#recent-posts::before {
+  content: "📝 最新文章";
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+  color: #37352f;
+  margin: 4px 0 14px 4px;
+}
+
+/* 欢迎区图标墙: 标题是绝对定位悬浮在左上的,图标墙放到右下角错开(不倾斜,Notion 极简风) */
+#random-banner #skills-tags-group-all {
+  position: absolute !important;
+  right: 1.5rem !important;
+  bottom: 0.25rem !important;
+  margin: 0 !important;
+  transform: rotate(0) !important;
+}
+#random-banner #skills-tags-group-all .tags-group-wrapper {
+  margin: 0 !important;
+}
+#random-banner #skills-tags-group-all .tags-group-wrapper {
+  margin-top: 12px !important;
+}
+#random-banner #skills-tags-group-all .tags-group-icon {
+  width: 72px !important;
+  height: 72px !important;
+  border-radius: 18px !important;
+}
+#random-banner #skills-tags-group-all .tags-group-icon img {
+  width: 40px !important;
+}
+#random-banner #skills-tags-group-all .tags-group-icon-pair .tags-group-icon:nth-child(even) {
+  transform: translate(-36px) !important;
+}
+
+/* 今日推荐卡: 内容与下方文章列表重复,且浅色主题下白字不可读,直接隐藏 */
+#topGroup {
+  display: none !important;
 }
 
 /* 隐藏首页分类筛选条(「首页/指南/更多」横条,分类少时语义不明;

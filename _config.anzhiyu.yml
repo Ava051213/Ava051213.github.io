@@ -56,8 +56,8 @@ copy:
 # formal:
 #   name: link || icon
 social:
-  # Github: https://github.com/anzhiyu-c || anzhiyu-icon-github
-  # BiliBili: https://space.bilibili.com/372204786 || anzhiyu-icon-bilibili
+  Github: https://github.com/Ava051213 || anzhiyu-icon-github
+  Email: mailto:3424808832@qq.com || anzhiyu-icon-envelope
 
 # 作者卡片 状态
 author_status:
@@ -1041,13 +1041,18 @@ home_top:
   timemode: date #date/updated
   title: Hi, I'm Mia
   subTitle: Stars fade, words stay
-  siteText: ''
+  siteText: 'Welcome to my notes ✨'
   category:
     - name: 指南
       path: /categories/指南/
       shadow: var(--anzhiyu-shadow-blue)
       class: blue
       icon: anzhiyu-icon-book
+    - name: 关于
+      path: /about/
+      shadow: var(--anzhiyu-shadow-main)
+      class: blue
+      icon: anzhiyu-icon-paper-plane
   default_descr: 再怎么看我也不知道怎么描述它的啦！
   swiper:
     enable: false
@@ -1218,8 +1223,8 @@ inject:
   head:
     # 自定义css
     - <link rel="stylesheet" href="/css/custom.css">
-    # 首页分类块只显示第一个(Hexo 数组深合并无法删除主题默认项)
-    - <style>.categoryItem:nth-child(n+2){display:none!important}</style>
+    # 分类块第 3 个是数组深合并残留的主题默认项,隐藏之(以后分类多了可手动管理)
+    - <style>.categoryItem:nth-child(3){display:none!important}</style>
 
   bottom:
     # 自定义js

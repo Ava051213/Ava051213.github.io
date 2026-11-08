@@ -1,0 +1,14 @@
+- class_name: 关注我
+  creativity_list:
+    - name: Github
+      icon: /img/icon-github.png
+      color: "#24292f"
+    - name: BiliBili
+      icon: /img/icon-bilibili.png
+      color: "#fb7299"
+    - name: Email
+      icon: /img/icon-email.png
+      color: "#5645d4"
+    - name: RSS
+      icon: /img/icon-rss.png
+      color: "#ff8c00"
