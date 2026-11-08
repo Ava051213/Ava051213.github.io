@@ -1059,7 +1059,7 @@ home_top:
     swiper_css: https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/swiper/swiper.min.css #swiper css依赖
     swiper_js: https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/swiper/swiper.min.js #swiper js依赖
   banner:
-    tips: 欢迎来到我的博客
+    tips: 欢迎来到我的小站
     title: 记录学习与成长
     image: /img/banner.png
     link: /about/
