@@ -1041,7 +1041,7 @@ home_top:
   timemode: date #date/updated
   title: 你好,我是 Mia
   subTitle: 欢迎来我的小站
-  siteText: ava051213.github.io
+  siteText: ''
   category:
     - name: 指南
       path: /categories/指南/

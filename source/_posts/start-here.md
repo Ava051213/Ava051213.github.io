@@ -2,7 +2,7 @@
 title: 开始写笔记吧 — 使用指南
 date: 2026-11-08 12:00:00
 tags:
-  - 博客指南
+  - 使用指南
 categories:
   - 指南
 math: true
