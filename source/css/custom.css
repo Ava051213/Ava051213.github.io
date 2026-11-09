@@ -100,6 +100,11 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
   display: none !important;
 }
 
+/* 主题硬编码的「通知」气泡(内容不可配置) */
+#popup-window {
+  display: none !important;
+}
+
 /* 横幅大卡隐藏后,首页改为纵向布局: 欢迎卡变紧凑条 + 分类块 + 文章列表 */
 #home_top {
   display: block !important;
