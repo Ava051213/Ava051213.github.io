@@ -346,13 +346,17 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
   max-width: none;
   max-height: none;
   margin: 0;
-  animation: console-panel-in 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* 只在打开时播放,关闭后再打开会重新入场 */
+#console.show .console-card-group {
+  animation: console-panel-in 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
 @keyframes console-panel-in {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(18px) scale(0.975);
   }
   to {
     opacity: 1;
@@ -406,7 +410,7 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
 
 #console .console-panel-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   padding: 0 24px 24px;
 }
@@ -414,16 +418,64 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
 #console .console-tile {
   position: relative;
   min-width: 0;
-  padding: 22px 24px;
+  padding: 18px 20px;
+  border: 1px solid transparent;
   border-radius: 18px;
   background: var(--anzhiyu-secondbg);
+  opacity: 0;
+}
+
+/* 上面一整条「最近写」通栏,下面「标签 / 归档 / 关于」三块等宽:
+   对称的骨架 + 一块视觉重心,不靠内容堆满来撑场面 */
+#console .console-tile-hero {
+  grid-column: 1 / -1;
+  padding: 20px 24px 16px;
+  border-color: rgba(86, 69, 212, 0.14);
+  background: linear-gradient(
+    120deg,
+    rgba(86, 69, 212, 0.1),
+    rgba(86, 69, 212, 0.03) 48%,
+    var(--anzhiyu-card-bg) 100%
+  );
+}
+
+/* 入场节奏:面板先落下,四张卡片错峰浮起,数字最后弹一下 */
+#console.show .console-tile {
+  animation: console-tile-in 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+#console.show .console-tile-hero {
+  animation-delay: 0.06s;
+}
+
+#console.show .console-tile-tags {
+  animation-delay: 0.13s;
+}
+
+#console.show .console-tile-archive {
+  animation-delay: 0.2s;
+}
+
+#console.show .console-tile-about {
+  animation-delay: 0.27s;
+}
+
+@keyframes console-tile-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 #console .console-tile-head {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   color: var(--anzhiyu-fontcolor);
   font-size: 14px;
   font-weight: 600;
@@ -433,6 +485,19 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
 #console .console-tile-icon {
   flex: none;
   opacity: 0.45;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+#console .console-tile-hint {
+  margin-left: auto;
+  color: var(--anzhiyu-secondtext);
+  font-size: 11.5px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+#console .console-tile-head .console-tile-arrow {
+  margin-left: auto;
 }
 
 /* 最近文章:序号 + 标题/摘要 + 日期,悬停变白并右移 */
@@ -450,16 +515,21 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  padding: 12px 14px;
+  padding: 11px 14px;
   border-radius: 12px;
   color: var(--anzhiyu-fontcolor);
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
+/* 最新一篇垫一层极浅的主色,和序号一起构成视觉重点 */
+#console .console-post-list li:first-child a {
+  background: rgba(86, 69, 212, 0.05);
+}
+
 #console .console-post-list a:hover {
   background: var(--anzhiyu-card-bg);
   color: var(--anzhiyu-main);
-  transform: translateX(2px);
+  transform: translateX(3px);
 }
 
 #console .console-post-index {
@@ -471,6 +541,11 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   opacity: 0.7;
+}
+
+#console .console-post-index-latest {
+  color: var(--anzhiyu-main);
+  opacity: 1;
 }
 
 #console .console-post-list a:hover .console-post-index {
@@ -488,7 +563,7 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
 
 #console .console-post-title {
   overflow: hidden;
-  font-size: 15.5px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.45;
   text-overflow: ellipsis;
@@ -523,21 +598,37 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
   flex: 1;
   flex-wrap: wrap;
   align-content: center;
-  gap: 10px;
-  max-height: 168px;
+  gap: 8px;
+  max-height: 140px;
   overflow-y: auto;
+  scrollbar-color: var(--anzhiyu-card-border) transparent;
+  scrollbar-width: thin;
+}
+
+#console .console-tag-pills::-webkit-scrollbar {
+  width: 4px;
+}
+
+#console .console-tag-pills::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--anzhiyu-card-border);
+}
+
+#console .console-tag-pills::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 #console .console-tag-pills a {
   display: inline-flex;
   align-items: baseline;
   gap: 6px;
-  padding: 7px 14px;
+  padding: 6px 13px;
   border: 1px solid var(--anzhiyu-card-border);
   border-radius: 999px;
   background: var(--anzhiyu-card-bg);
   color: var(--anzhiyu-fontcolor);
-  font-size: 13px;
+  font-size: 12.5px;
+  line-height: 1.2;
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
@@ -545,12 +636,16 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
   border-color: transparent;
   background: var(--anzhiyu-main);
   color: #fff;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 #console .console-tag-pills sup {
+  position: relative;
+  top: -0.4em;
   color: var(--anzhiyu-secondtext);
   font-size: 10.5px;
+  line-height: 1;
+  vertical-align: baseline;
 }
 
 #console .console-tag-pills a:hover sup {
@@ -562,26 +657,61 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
   font-size: 13px;
 }
 
-/* 底部两块入口:归档用大号篇数,关于用一句站点副标题 */
+/* 底部三个入口:等高等宽,归档用大号篇数做第二视觉重心 */
 #console .console-tile-link {
   display: flex;
-  align-items: center;
-  gap: 14px;
-  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 148px;
+  transition: background 0.25s ease, border-color 0.25s ease,
+    box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 #console .console-tile-link:hover {
+  border-color: var(--anzhiyu-card-border);
   background: var(--anzhiyu-card-bg);
-  box-shadow: 0 10px 24px rgba(15, 15, 15, 0.08);
-  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(15, 15, 15, 0.08);
+  transform: translateY(-3px);
+}
+
+#console .console-tile-link:hover .console-tile-icon {
+  color: var(--anzhiyu-main);
+  opacity: 0.9;
+}
+
+#console .console-tile-archive {
+  background: linear-gradient(150deg, rgba(86, 69, 212, 0.07), var(--anzhiyu-secondbg) 72%);
+}
+
+#console .console-tile-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-block: auto;
 }
 
 #console .console-stat {
   color: var(--anzhiyu-main);
-  font-size: 34px;
+  font-size: 40px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
   line-height: 1;
+}
+
+#console.show .console-stat {
+  animation: console-stat-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.42s both;
+}
+
+@keyframes console-stat-in {
+  from {
+    opacity: 0;
+    transform: scale(0.72);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 #console .console-stat-text {
@@ -603,20 +733,15 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
   font-style: normal;
 }
 
-#console .console-tile-label {
-  flex: none;
-  color: var(--anzhiyu-fontcolor);
-  font-size: 14px;
-  font-weight: 600;
-}
-
-#console .console-tile-desc {
-  flex: 1;
+#console .console-tile-about-body {
+  display: -webkit-box;
+  margin-block: auto;
   overflow: hidden;
   color: var(--anzhiyu-secondtext);
-  font-size: 12.5px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 13px;
+  line-height: 1.65;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 #console .console-tile-arrow {
@@ -628,6 +753,18 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
 #console .console-tile-link:hover .console-tile-arrow {
   color: var(--anzhiyu-main);
   transform: translateX(3px);
+}
+
+/* 减少动态:直接呈现最终状态,不播放入场 */
+@media (prefers-reduced-motion: reduce) {
+  #console.show .console-card-group,
+  #console .console-tile,
+  #console.show .console-tile,
+  #console.show .console-stat {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
 }
 
 /* 底部开关收进一枚白色圆角胶囊 */
