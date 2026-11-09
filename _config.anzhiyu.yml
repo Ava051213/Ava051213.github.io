@@ -6,8 +6,6 @@ menu:
 
   首页: / || anzhiyu-icon-home
   归档: /archives/ || anzhiyu-icon-box-archive
-  标签: /tags/ || anzhiyu-icon-tags
-  分类: /categories/ || anzhiyu-icon-shapes
   关于: /about/ || anzhiyu-icon-paper-plane
 # nav相关配置
 nav:
@@ -625,8 +623,8 @@ theme_color:
 sidebar:
   site_data:
     archive: true
-    tag: true
-    category: true
+    tag: false
+    category: false
   menus_items: true
   tags_cloud: true
   display_mode: true
