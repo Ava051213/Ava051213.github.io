@@ -77,10 +77,32 @@ div#bannerGroup {
   width: 100% !important;
 }
 
-/* 首页分类块只有两个时各占一半,避免中间空出一格(三个及以上仍用主题三等分) */
+/* 首页分类块只有两个时并成一条: 左「归档」右「关于」,中间用发丝线分隔 */
 @media screen and (min-width: 1201px) {
+  #home_top .categoryGroup:has(.categoryItem:nth-child(2):last-child) {
+    gap: 0;
+    border-radius: 12px;
+    box-shadow: var(--anzhiyu-shadow-blue);
+  }
+
   #home_top .categoryGroup:has(.categoryItem:nth-child(2):last-child) .categoryItem {
-    width: calc(50% - 0.25rem);
+    width: 50%;
+    margin-right: 0;
+    border-radius: 0;
+    box-shadow: none !important;
+  }
+
+  #home_top .categoryGroup:has(.categoryItem:nth-child(2):last-child) .categoryItem:first-child {
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px 0 0 12px;
+  }
+
+  #home_top .categoryGroup:has(.categoryItem:nth-child(2):last-child) .categoryItem:last-child {
+    border-radius: 0 12px 12px 0;
+  }
+
+  #home_top .categoryGroup:has(.categoryItem:nth-child(2):last-child) .categoryButton {
+    border-radius: 0;
   }
 }
 
