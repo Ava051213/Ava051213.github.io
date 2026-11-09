@@ -335,123 +335,221 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
   min-height: 170px;
 }
 
-/* ===== 中控台:紧凑面板 =====
-   主题默认把「最新评论」和标签卡并排,评论卡固定 580px 高、
-   标签卡占 60% 宽,内容少时整块面板又窄又空。
-   这里去掉评论卡,把标签和归档合并成一块紧凑面板。 */
+/* ===== 中控台:一块有层次的快捷面板 =====
+   主题原版是「评论卡 + 固定宽高的标签/归档卡」,没接评论时左侧空一大块。
+   内容由 scripts/console-panel.js 重排:左「最近写」、右「标签」、底部「归档」入口。 */
 #console .console-card-group {
   display: block;
-  width: min(680px, calc(100vw - 48px));
+  width: min(760px, calc(100vw - 48px));
   max-width: none;
   max-height: none;
   margin: 0;
+  animation: console-panel-in 0.36s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
-/* 未接入评论系统时中控台不再渲染评论卡,左侧留白一并隐藏 */
-#console .console-card-group-left {
-  display: none;
+@keyframes console-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
-/* 标签 + 归档合成一块白色面板,中间用发丝线分隔 */
-#console .console-card-group::before {
-  content: "中控台";
-  display: block;
-  margin: 0 0 10px 2px;
-  color: rgba(255, 255, 255, 0.82);
+#console .console-panel {
+  overflow: hidden;
+  border: 1px solid var(--anzhiyu-card-border);
+  border-radius: 18px;
+  background: var(--anzhiyu-card-bg);
+  box-shadow: 0 16px 44px rgba(15, 15, 15, 0.12);
+}
+
+#console .console-panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 24px 10px;
+}
+
+#console .console-panel-title {
+  color: var(--anzhiyu-fontcolor);
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
 }
 
-#console .console-card-group-right {
-  display: block;
-  width: 100%;
-  min-width: 0;
-  height: auto;
-  background: var(--anzhiyu-card-bg);
-  border: 1px solid var(--anzhiyu-card-border);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(15, 15, 15, 0.08);
-}
-
-#console .console-card {
-  padding: 22px 26px;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-}
-
-#console .console-card.tags {
-  height: auto;
-}
-
-#console .author-content-item-tips {
-  margin-bottom: 6px;
+#console .console-panel-meta {
+  color: var(--anzhiyu-secondtext);
   font-size: 12px;
-  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
 }
 
-#console .author-content-item-title {
-  font-size: 1.3rem;
+#console .console-panel-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
 }
 
-#console .console-card.tags .card-tag-cloud {
-  max-height: 200px;
-  margin-top: 14px;
-  overflow-y: auto;
-}
-
-/* 归档卡:与标签卡同处一块面板,用上边线分区 */
-#console .console-card.history {
+#console .console-pane {
   min-width: 0;
-  margin-top: 0;
-  padding: 18px 26px 20px;
-  background: transparent;
-  border: none;
-  border-top: 1px solid var(--anzhiyu-card-border);
-  border-radius: 0;
-  box-shadow: none;
+  padding: 0 10px 12px;
 }
 
-#console .console-card.history .card-archives .item-headline {
+#console .console-pane + .console-pane {
+  border-left: 1px solid var(--anzhiyu-card-border);
+}
+
+#console .console-pane-head {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 8px;
+  gap: 7px;
+  padding: 8px 12px 6px;
   color: var(--anzhiyu-secondtext);
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
 }
 
-#console .console-card.history .card-archives .item-headline i {
-  font-size: 14px;
+#console .console-pane-icon,
+#console .console-archive-icon {
+  flex: none;
+  opacity: 0.75;
 }
 
-#console .console-card.history .card-archive-list {
+/* 最近文章:序号 + 标题 + 日期,悬停右移让列表不呆板 */
+#console .console-post-list {
   margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-#console .console-card.history .card-archive-list li.card-archive-list-item {
-  flex: 0 0 100%;
-}
-
-#console .console-card.history .card-archive-list .card-archive-list-link {
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0;
-  padding: 9px 10px;
-  border: none;
-  border-radius: 8px;
+#console .console-post-list a {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
   color: var(--anzhiyu-fontcolor);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
-#console .console-card.history .card-archive-list .card-archive-list-link:hover {
+#console .console-post-list a:hover {
   background: var(--anzhiyu-secondbg);
-  color: var(--anzhiyu-hovertext);
+  color: var(--anzhiyu-main);
+  transform: translateX(3px);
+}
+
+#console .console-post-index {
+  flex: none;
+  width: 2ch;
+  color: var(--anzhiyu-secondtext);
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.7;
+}
+
+#console .console-post-list a:hover .console-post-index {
+  color: var(--anzhiyu-main);
+  opacity: 1;
+}
+
+#console .console-post-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#console .console-post-date {
+  flex: none;
+  color: var(--anzhiyu-secondtext);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 标签改成胶囊,悬停上浮并填主色 */
+#console .console-tag-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-height: 178px;
+  padding: 2px 12px 4px;
+  overflow-y: auto;
+}
+
+#console .console-tag-pills a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--anzhiyu-secondbg);
+  color: var(--anzhiyu-fontcolor);
+  font-size: 12.5px;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+#console .console-tag-pills a:hover {
+  background: var(--anzhiyu-main);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+#console .console-tag-pills sup {
+  color: var(--anzhiyu-secondtext);
+  font-size: 10px;
+}
+
+#console .console-tag-pills a:hover sup {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+#console .console-pane-empty {
+  padding: 2px 12px 6px;
+  color: var(--anzhiyu-secondtext);
+  font-size: 12px;
+}
+
+/* 底部归档入口:整条可点,箭头随悬停前移 */
+#console .console-archive-bar {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 24px;
+  border-top: 1px solid var(--anzhiyu-card-border);
+  color: var(--anzhiyu-fontcolor);
+  transition: background 0.2s ease;
+}
+
+#console .console-archive-bar:hover {
+  background: var(--anzhiyu-secondbg);
+}
+
+#console .console-archive-text {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+#console .console-archive-meta {
+  flex: 1;
+  color: var(--anzhiyu-secondtext);
+  font-size: 12px;
+}
+
+#console .console-archive-arrow {
+  flex: none;
+  color: var(--anzhiyu-secondtext);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+#console .console-archive-bar:hover .console-archive-arrow {
+  color: var(--anzhiyu-main);
+  transform: translateX(3px);
 }
 
 /* 底部开关收进一枚白色圆角胶囊 */

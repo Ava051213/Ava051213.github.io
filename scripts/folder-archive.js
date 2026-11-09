@@ -77,8 +77,32 @@ function buildArchiveHtml(posts) {
 </div>`;
 }
 
+function redirectPage(target) {
+  return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>归档</title>
+  <link rel="canonical" href="${target}">
+  <meta name="robots" content="noindex">
+  <meta http-equiv="refresh" content="0;url=${target}">
+  <script>location.replace(${JSON.stringify(target)});</script>
+</head>
+<body>
+  <p>正在前往 <a href="${target}">归档</a>…</p>
+</body>
+</html>`;
+}
+
 hexo.extend.filter.register('after_render:html', function (str, data) {
-  // 只处理 /archives/ 第一页,年份/月份归档页保持原样
+  // 年份/月份归档页已经没有用了,直接回 /archives/ 的文件夹视图
+  if (data && /^archives\/\d{4}(\/\d{2})?\/index\.html$/.test(data.path)) {
+    const root = (this.config.root || '/').replace(/\/?$/, '/');
+    return redirectPage(encodeURI(root + 'archives/'));
+  }
+
+  // 只处理 /archives/ 第一页
   if (!data || data.path !== 'archives/index.html') {
     return str;
   }
