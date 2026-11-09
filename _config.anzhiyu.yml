@@ -850,7 +850,7 @@ runtimeshow:
 
 # Console - Newest Comments
 newest_comments:
-  enable: true
+  enable: false # 未接入评论系统, 中控台不再显示空的「最新评论」卡
   sort_order: # Don't modify the setting unless you know how it works
   limit: 6
   storage: 10 # unit: mins, save data to localStorage

@@ -334,3 +334,171 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
   height: auto !important;
   min-height: 170px;
 }
+
+/* ===== 中控台:紧凑面板 =====
+   主题默认把「最新评论」和标签卡并排,评论卡固定 580px 高、
+   标签卡占 60% 宽,内容少时整块面板又窄又空。
+   这里去掉评论卡,把标签和归档合并成一块紧凑面板。 */
+#console .console-card-group {
+  display: block;
+  width: min(680px, calc(100vw - 48px));
+  max-width: none;
+  max-height: none;
+  margin: 0;
+}
+
+/* 未接入评论系统时中控台不再渲染评论卡,左侧留白一并隐藏 */
+#console .console-card-group-left {
+  display: none;
+}
+
+/* 标签 + 归档合成一块白色面板,中间用发丝线分隔 */
+#console .console-card-group::before {
+  content: "中控台";
+  display: block;
+  margin: 0 0 10px 2px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+#console .console-card-group-right {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  background: var(--anzhiyu-card-bg);
+  border: 1px solid var(--anzhiyu-card-border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(15, 15, 15, 0.08);
+}
+
+#console .console-card {
+  padding: 22px 26px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#console .console-card.tags {
+  height: auto;
+}
+
+#console .author-content-item-tips {
+  margin-bottom: 6px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+#console .author-content-item-title {
+  font-size: 1.3rem;
+}
+
+#console .console-card.tags .card-tag-cloud {
+  max-height: 200px;
+  margin-top: 14px;
+  overflow-y: auto;
+}
+
+/* 归档卡:与标签卡同处一块面板,用上边线分区 */
+#console .console-card.history {
+  min-width: 0;
+  margin-top: 0;
+  padding: 18px 26px 20px;
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--anzhiyu-card-border);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#console .console-card.history .card-archives .item-headline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  color: var(--anzhiyu-secondtext);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+#console .console-card.history .card-archives .item-headline i {
+  font-size: 14px;
+}
+
+#console .console-card.history .card-archive-list {
+  margin: 0;
+}
+
+#console .console-card.history .card-archive-list li.card-archive-list-item {
+  flex: 0 0 100%;
+}
+
+#console .console-card.history .card-archive-list .card-archive-list-link {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  padding: 9px 10px;
+  border: none;
+  border-radius: 8px;
+  color: var(--anzhiyu-fontcolor);
+}
+
+#console .console-card.history .card-archive-list .card-archive-list-link:hover {
+  background: var(--anzhiyu-secondbg);
+  color: var(--anzhiyu-hovertext);
+}
+
+/* 底部开关收进一枚白色圆角胶囊 */
+#console .button-group {
+  gap: 6px;
+  margin: 14px auto 0;
+  padding: 6px;
+  background: var(--anzhiyu-card-bg);
+  border: 1px solid var(--anzhiyu-card-border);
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(15, 15, 15, 0.06);
+}
+
+#console .button-group .console-btn-item {
+  width: 42px;
+  height: 42px;
+}
+
+#console .button-group .console-btn-item:not(:last-child) {
+  margin-right: 0;
+}
+
+#console .button-group .console-btn-item a {
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+}
+
+/* 打开中控台时让页面真正退到后面,并隐去右下角悬浮按钮 */
+#console .console-mask {
+  background: rgba(28, 25, 21, 0.32);
+}
+
+#console.show .console-mask {
+  background: rgba(28, 25, 21, 0.32);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+}
+
+body:has(#console.show) #rightside {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+/* 主题在窄屏/矮屏只保留底部开关,这里沿用该行为 */
+@media screen and (max-width: 1200px), screen and (max-height: 800px) {
+  #console .console-card-group {
+    display: none;
+  }
+}
