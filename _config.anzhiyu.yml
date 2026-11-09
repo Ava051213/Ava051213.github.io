@@ -1052,6 +1052,11 @@ home_top:
       shadow: var(--anzhiyu-shadow-main)
       class: blue
       icon: anzhiyu-icon-paper-plane
+    - name: 指南
+      path: /categories/指南/
+      shadow: var(--anzhiyu-shadow-green)
+      class: green
+      icon: anzhiyu-icon-book
   default_descr: 再怎么看我也不知道怎么描述它的啦！
   swiper:
     enable: false
@@ -1222,8 +1227,6 @@ inject:
   head:
     # 自定义css
     - <link rel="stylesheet" href="/css/custom.css">
-    # 分类块第 3 个是数组深合并残留的主题默认项,隐藏之(以后分类多了可手动管理)
-    - <style>.categoryItem:nth-child(3){display:none!important}</style>
 
   bottom:
     # 自定义js
