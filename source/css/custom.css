@@ -108,6 +108,146 @@ main#blog-container {
   z-index: 2;
 }
 
+/* ===== 归档页:按分类折叠的文件夹视图 ===== */
+.folder-archive {
+  padding: 4px 2px;
+}
+
+.folder-archive-title {
+  margin: 4px 0 8px;
+  font-size: 2em;
+  font-weight: 600;
+  color: var(--anzhiyu-fontcolor);
+}
+
+.folder-archive-hint {
+  margin: 0 0 20px;
+  font-size: 13px;
+  color: var(--anzhiyu-secondtext);
+}
+
+.folder-archive-item {
+  margin-bottom: 10px;
+  background: var(--anzhiyu-card-bg);
+  border: 1px solid var(--anzhiyu-card-border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.folder-archive-item[open] {
+  border-color: rgba(86, 69, 212, 0.35);
+  box-shadow: 0 2px 10px rgba(86, 69, 212, 0.06);
+}
+
+.folder-archive-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 16px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.folder-archive-head::-webkit-details-marker {
+  display: none;
+}
+
+.folder-archive-head:hover {
+  background: var(--anzhiyu-secondbg);
+}
+
+.folder-archive-icon {
+  flex: none;
+}
+
+.folder-archive-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--anzhiyu-fontcolor);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.folder-archive-count {
+  flex: none;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--anzhiyu-secondbg);
+  color: var(--anzhiyu-secondtext);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.folder-archive-chevron {
+  flex: none;
+  color: var(--anzhiyu-secondtext);
+  transition: transform 0.2s ease;
+}
+
+.folder-archive-item[open] .folder-archive-chevron {
+  transform: rotate(90deg);
+}
+
+.folder-archive-posts {
+  margin: 0;
+  padding: 0 16px 8px 46px;
+  list-style: none;
+}
+
+.folder-archive-post + .folder-archive-post {
+  border-top: 1px solid var(--anzhiyu-card-border);
+}
+
+.folder-archive-post a {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 9px 0;
+  color: var(--anzhiyu-fontcolor);
+  transition: color 0.2s ease;
+}
+
+.folder-archive-post a:hover {
+  color: var(--anzhiyu-main);
+}
+
+.folder-archive-post-title {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.folder-archive-post-date {
+  flex: none;
+  font-size: 12px;
+  color: var(--anzhiyu-secondtext);
+}
+
+.folder-archive-empty {
+  color: var(--anzhiyu-secondtext);
+}
+
+@media screen and (max-width: 768px) {
+  .folder-archive-posts {
+    padding-left: 16px;
+  }
+
+  .folder-archive-post a {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .folder-archive-post-date {
+    font-size: 11px;
+  }
+}
+
 /* ===== 以下为按需隐藏的冗余模块(想恢复删掉对应段即可) ===== */
 
 /* 欢迎卡社交图标墙(画蛇添足) */
