@@ -80,16 +80,27 @@ div#bannerGroup {
 /* 首页分类块只有两个时并成一条: 左「归档」右「关于」,中间用发丝线分隔 */
 @media screen and (min-width: 1201px) {
   #home_top .categoryGroup:has(.categoryItem:nth-child(2):last-child) {
+    display: flex;
     gap: 0;
+    height: 66px;
     border-radius: 12px;
     box-shadow: var(--anzhiyu-shadow-blue);
   }
 
   #home_top .categoryGroup:has(.categoryItem:nth-child(2):last-child) .categoryItem {
-    width: 50%;
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
     margin-right: 0;
     border-radius: 0;
     box-shadow: none !important;
+    transition: flex-grow 0.8s cubic-bezier(0.65, 0.15, 0.37, 1.19);
+  }
+
+  /* 悬停时本块变宽、另一块让位,恢复主题原本的收缩动画 */
+  #home_top .categoryGroup:has(.categoryItem:nth-child(2):last-child) .categoryItem:hover {
+    flex-grow: 1.65;
+    width: auto;
   }
 
   #home_top .categoryGroup:has(.categoryItem:nth-child(2):last-child) .categoryItem:first-child {
@@ -102,7 +113,26 @@ div#bannerGroup {
   }
 
   #home_top .categoryGroup:has(.categoryItem:nth-child(2):last-child) .categoryButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 0;
+    line-height: 1.2;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+  }
+
+  #home_top .categoryGroup:has(.categoryItem:nth-child(2):last-child) .categoryButtonText {
+    padding-left: 0;
+  }
+
+  /* 主题的下划短线随文字一起移到中间 */
+  #home_top .categoryGroup:has(.categoryItem:nth-child(2):last-child) .categoryButton::after {
+    left: 50%;
+    top: auto;
+    bottom: 14px;
+    width: 1.25rem;
+    transform: translateX(-50%);
   }
 }
 
