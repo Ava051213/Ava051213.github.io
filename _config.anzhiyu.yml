@@ -1050,11 +1050,6 @@ home_top:
       shadow: var(--anzhiyu-shadow-main)
       class: blue
       icon: anzhiyu-icon-paper-plane
-    - name: 指南
-      path: /categories/指南/
-      shadow: var(--anzhiyu-shadow-green)
-      class: green
-      icon: anzhiyu-icon-book
   default_descr: 再怎么看我也不知道怎么描述它的啦！
   swiper:
     enable: false

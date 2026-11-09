@@ -77,6 +77,13 @@ div#bannerGroup {
   width: 100% !important;
 }
 
+/* 首页分类块只有两个时各占一半,避免中间空出一格(三个及以上仍用主题三等分) */
+@media screen and (min-width: 1201px) {
+  #home_top .categoryGroup:has(.categoryItem:nth-child(2):last-child) .categoryItem {
+    width: calc(50% - 0.25rem);
+  }
+}
+
 /* 内容区撑满剩余高度,避免短页面(归档/关于)被 body 的 space-between 顶到中间 */
 main#blog-container {
   flex: 1;
