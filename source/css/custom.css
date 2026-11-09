@@ -335,22 +335,24 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
   min-height: 170px;
 }
 
-/* ===== 中控台:一块有层次的快捷面板 =====
+/* ===== 中控台:宽幅 Bento 面板 =====
    主题原版是「评论卡 + 固定宽高的标签/归档卡」,没接评论时左侧空一大块。
-   内容由 scripts/console-panel.js 重排:左「最近写」、右「标签」、底部「归档」入口。 */
+   内容由 scripts/console-panel.js 重排成「最近写 / 标签 / 归档 / 关于」四块。
+   尺寸参考 shuTwT/hsu-blog 的中控台(大内边距、圆角卡片)与
+   gethomepage/homepage 的分组卡片网格:整块放宽到 1040px,不再挤成窄条。 */
 #console .console-card-group {
   display: block;
-  width: min(760px, calc(100vw - 48px));
+  width: min(1040px, calc(100vw - 80px));
   max-width: none;
   max-height: none;
   margin: 0;
-  animation: console-panel-in 0.36s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation: console-panel-in 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
 @keyframes console-panel-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -361,89 +363,109 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
 #console .console-panel {
   overflow: hidden;
   border: 1px solid var(--anzhiyu-card-border);
-  border-radius: 18px;
+  border-radius: 24px;
   background: var(--anzhiyu-card-bg);
-  box-shadow: 0 16px 44px rgba(15, 15, 15, 0.12);
+  box-shadow: 0 24px 70px rgba(15, 15, 15, 0.14);
 }
 
 #console .console-panel-head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 12px;
-  padding: 18px 24px 10px;
+  gap: 16px;
+  padding: 28px 32px 20px;
+}
+
+#console .console-panel-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+#console .console-panel-site {
+  color: var(--anzhiyu-secondtext);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 #console .console-panel-title {
   color: var(--anzhiyu-fontcolor);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
 }
 
 #console .console-panel-meta {
   color: var(--anzhiyu-secondtext);
-  font-size: 12px;
+  font-size: 12.5px;
   font-variant-numeric: tabular-nums;
 }
 
 #console .console-panel-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 16px;
+  padding: 0 24px 24px;
 }
 
-#console .console-pane {
+#console .console-tile {
+  position: relative;
   min-width: 0;
-  padding: 0 10px 12px;
+  padding: 22px 24px;
+  border-radius: 18px;
+  background: var(--anzhiyu-secondbg);
 }
 
-#console .console-pane + .console-pane {
-  border-left: 1px solid var(--anzhiyu-card-border);
-}
-
-#console .console-pane-head {
+#console .console-tile-head {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 8px 12px 6px;
-  color: var(--anzhiyu-secondtext);
-  font-size: 12px;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: var(--anzhiyu-fontcolor);
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.02em;
 }
 
-#console .console-pane-icon,
-#console .console-archive-icon {
+#console .console-tile-icon {
   flex: none;
-  opacity: 0.75;
+  opacity: 0.45;
 }
 
-/* 最近文章:序号 + 标题 + 日期,悬停右移让列表不呆板 */
+/* 最近文章:序号 + 标题/摘要 + 日期,悬停变白并右移 */
 #console .console-post-list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+#console .console-post-list li + li {
+  margin-top: 2px;
+}
+
 #console .console-post-list a {
   display: flex;
-  align-items: baseline;
-  gap: 12px;
-  padding: 10px 12px;
-  border-radius: 10px;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
   color: var(--anzhiyu-fontcolor);
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 #console .console-post-list a:hover {
-  background: var(--anzhiyu-secondbg);
+  background: var(--anzhiyu-card-bg);
   color: var(--anzhiyu-main);
-  transform: translateX(3px);
+  transform: translateX(2px);
 }
 
 #console .console-post-index {
   flex: none;
   width: 2ch;
+  padding-top: 3px;
   color: var(--anzhiyu-secondtext);
   font-size: 11px;
   font-weight: 600;
@@ -456,45 +478,71 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
   opacity: 1;
 }
 
-#console .console-post-title {
+#console .console-post-main {
+  display: flex;
   flex: 1;
+  flex-direction: column;
   min-width: 0;
+  gap: 4px;
+}
+
+#console .console-post-title {
   overflow: hidden;
-  font-size: 14px;
+  font-size: 15.5px;
+  font-weight: 500;
+  line-height: 1.45;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#console .console-post-excerpt {
+  overflow: hidden;
+  color: var(--anzhiyu-secondtext);
+  font-size: 12.5px;
+  line-height: 1.5;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 #console .console-post-date {
   flex: none;
+  padding-top: 3px;
   color: var(--anzhiyu-secondtext);
-  font-size: 11px;
+  font-size: 12px;
   font-variant-numeric: tabular-nums;
 }
 
-/* 标签改成胶囊,悬停上浮并填主色 */
+/* 标签:白底胶囊落在浅色卡片上,悬停填充主色;内容少时在卡内垂直居中 */
+#console .console-tile-tags {
+  display: flex;
+  flex-direction: column;
+}
+
 #console .console-tag-pills {
   display: flex;
+  flex: 1;
   flex-wrap: wrap;
-  gap: 8px;
-  max-height: 178px;
-  padding: 2px 12px 4px;
+  align-content: center;
+  gap: 10px;
+  max-height: 168px;
   overflow-y: auto;
 }
 
 #console .console-tag-pills a {
   display: inline-flex;
   align-items: baseline;
-  gap: 5px;
-  padding: 5px 11px;
+  gap: 6px;
+  padding: 7px 14px;
+  border: 1px solid var(--anzhiyu-card-border);
   border-radius: 999px;
-  background: var(--anzhiyu-secondbg);
+  background: var(--anzhiyu-card-bg);
   color: var(--anzhiyu-fontcolor);
-  font-size: 12.5px;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  font-size: 13px;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 #console .console-tag-pills a:hover {
+  border-color: transparent;
   background: var(--anzhiyu-main);
   color: #fff;
   transform: translateY(-1px);
@@ -502,52 +550,82 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
 
 #console .console-tag-pills sup {
   color: var(--anzhiyu-secondtext);
-  font-size: 10px;
+  font-size: 10.5px;
 }
 
 #console .console-tag-pills a:hover sup {
   color: rgba(255, 255, 255, 0.75);
 }
 
-#console .console-pane-empty {
-  padding: 2px 12px 6px;
+#console .console-tile-empty {
   color: var(--anzhiyu-secondtext);
-  font-size: 12px;
+  font-size: 13px;
 }
 
-/* 底部归档入口:整条可点,箭头随悬停前移 */
-#console .console-archive-bar {
+/* 底部两块入口:归档用大号篇数,关于用一句站点副标题 */
+#console .console-tile-link {
   display: flex;
   align-items: center;
-  gap: 9px;
-  padding: 12px 24px;
-  border-top: 1px solid var(--anzhiyu-card-border);
+  gap: 14px;
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+#console .console-tile-link:hover {
+  background: var(--anzhiyu-card-bg);
+  box-shadow: 0 10px 24px rgba(15, 15, 15, 0.08);
+  transform: translateY(-2px);
+}
+
+#console .console-stat {
+  color: var(--anzhiyu-main);
+  font-size: 34px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+#console .console-stat-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+}
+
+#console .console-stat-text strong {
   color: var(--anzhiyu-fontcolor);
-  transition: background 0.2s ease;
-}
-
-#console .console-archive-bar:hover {
-  background: var(--anzhiyu-secondbg);
-}
-
-#console .console-archive-text {
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 600;
 }
 
-#console .console-archive-meta {
-  flex: 1;
+#console .console-stat-text em {
   color: var(--anzhiyu-secondtext);
   font-size: 12px;
+  font-style: normal;
 }
 
-#console .console-archive-arrow {
+#console .console-tile-label {
+  flex: none;
+  color: var(--anzhiyu-fontcolor);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#console .console-tile-desc {
+  flex: 1;
+  overflow: hidden;
+  color: var(--anzhiyu-secondtext);
+  font-size: 12.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#console .console-tile-arrow {
   flex: none;
   color: var(--anzhiyu-secondtext);
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
-#console .console-archive-bar:hover .console-archive-arrow {
+#console .console-tile-link:hover .console-tile-arrow {
   color: var(--anzhiyu-main);
   transform: translateX(3px);
 }
