@@ -70,7 +70,8 @@ function renderTagCloud(tags, urlFor) {
       ? Math.max(13, 26 - i * 2.4)
       : 13 + 12 * Math.sqrt(tag.count / maxCount);
     const topClass = i < 2 ? ' console-tag-item-top' : '';
-    return `<a class="console-tag-item${topClass}" style="--tag-size:${size.toFixed(1)}px;--tag-i:${i}" href="${urlFor(tag.path)}" title="${tag.count} 篇文章">${escapeHtml(tag.name)}<sup>${tag.count}</sup></a>`;
+    const breath = (4.6 + (i % 4) * 0.6).toFixed(1);
+    return `<a class="console-tag-item${topClass}" style="--tag-size:${size.toFixed(1)}px;--tag-i:${i};--tag-breath:${breath}s" href="${urlFor(tag.path)}" title="${tag.count} 篇文章">${escapeHtml(tag.name)}<sup>${tag.count}</sup></a>`;
   }).join('');
 }
 
@@ -112,7 +113,7 @@ function buildConsoleHtml(posts, tags, urlFor, site) {
       </div>
     </a>
   </div>
-</div></div>`;
+</div></div><script src="${urlFor('js/console-tags.js')}" defer></script>`;
 }
 
 hexo.extend.filter.register('after_render:html', function (str, data) {
