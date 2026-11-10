@@ -13,7 +13,7 @@ const ICON_INFO = `<svg class="console-tile-icon" viewBox="0 0 24 24" width="15"
 const ICON_ARROW = `<svg class="console-tile-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
 
 const MAX_POSTS = 5;
-const MAX_TAGS = 24;
+const MAX_TAGS = 12;
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, ch => ({
@@ -61,8 +61,18 @@ function renderPostRow(post, index, urlFor) {
   </a></li>`;
 }
 
-function renderTagPill(tag, urlFor) {
-  return `<a href="${urlFor(tag.path)}">${escapeHtml(tag.name)}<sup>${tag.count}</sup></a>`;
+function renderTagCloud(tags, urlFor) {
+  const maxCount = Math.max(1, ...tags.map(tag => tag.count));
+  // 大多数标签都只有一篇文章时，纯粹按数量算字号会糊成一片，
+  // 这时改用排名拉出大小层次，字形更像词云。
+  const uniform = tags.every(tag => tag.count === maxCount);
+  return tags.map((tag, i) => {
+    const size = uniform
+      ? Math.max(13, 24 - i * 2.2)
+      : 13 + 9 * Math.sqrt(tag.count / maxCount);
+    const topClass = i < 2 ? ' console-tag-item-top' : '';
+    return `<a class="console-tag-item${topClass}" style="--tag-size:${size.toFixed(1)}px;--tag-i:${i}" href="${urlFor(tag.path)}" title="${tag.count} 篇文章">${escapeHtml(tag.name)}<sup>${tag.count}</sup></a>`;
+  }).join('');
 }
 
 function buildConsoleHtml(posts, tags, urlFor, site) {
@@ -74,8 +84,8 @@ function buildConsoleHtml(posts, tags, urlFor, site) {
     ? `<ol class="console-post-list">${recent.map((post, i) => renderPostRow(post, i, urlFor)).join('')}</ol>`
     : '<p class="console-tile-empty">还没有发布文章。</p>';
 
-  const tagPills = topTags.length
-    ? topTags.map(tag => renderTagPill(tag, urlFor)).join('')
+  const tagCloud = topTags.length
+    ? renderTagCloud(topTags, urlFor)
     : '<span class="console-tile-empty">还没有标签。</span>';
 
   return `<div class="console-card-group"><div class="console-panel">
@@ -92,8 +102,8 @@ function buildConsoleHtml(posts, tags, urlFor, site) {
       ${postList}
     </section>
     <section class="console-tile console-tile-tags">
-      <div class="console-tile-head">${ICON_TAG}<span>标签</span></div>
-      <div class="console-tag-pills">${tagPills}</div>
+      <div class="console-tile-head">${ICON_TAG}<span>标签</span><span class="console-tile-hint">字号按数量</span></div>
+      <div class="console-tag-cloud">${tagCloud}</div>
     </section>
     <a class="console-tile console-tile-link console-tile-archive" href="${urlFor('archives/')}">
       <div class="console-tile-head">${ICON_ARCHIVE}<span>归档</span>${ICON_ARROW}</div>
