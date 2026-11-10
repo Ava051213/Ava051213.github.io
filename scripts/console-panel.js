@@ -9,7 +9,6 @@
 const ICON_CLOCK = `<svg class="console-tile-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>`;
 const ICON_TAG = `<svg class="console-tile-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h16M4 15h16M10 3 8 21M16 3l-2 18"/></svg>`;
 const ICON_ARCHIVE = `<svg class="console-tile-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="5" rx="1.5"/><path d="M5 9v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9M10 13h4"/></svg>`;
-const ICON_INFO = `<svg class="console-tile-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>`;
 const ICON_ARROW = `<svg class="console-tile-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
 
 const MAX_POSTS = 5;
@@ -68,8 +67,8 @@ function renderTagCloud(tags, urlFor) {
   const uniform = tags.every(tag => tag.count === maxCount);
   return tags.map((tag, i) => {
     const size = uniform
-      ? Math.max(13, 24 - i * 2.2)
-      : 13 + 9 * Math.sqrt(tag.count / maxCount);
+      ? Math.max(13, 26 - i * 2.4)
+      : 13 + 12 * Math.sqrt(tag.count / maxCount);
     const topClass = i < 2 ? ' console-tag-item-top' : '';
     return `<a class="console-tag-item${topClass}" style="--tag-size:${size.toFixed(1)}px;--tag-i:${i}" href="${urlFor(tag.path)}" title="${tag.count} 篇文章">${escapeHtml(tag.name)}<sup>${tag.count}</sup></a>`;
   }).join('');
@@ -111,10 +110,6 @@ function buildConsoleHtml(posts, tags, urlFor, site) {
         <span class="console-stat">${postCount}</span>
         <span class="console-stat-text"><strong>篇文章</strong><em>按分类浏览</em></span>
       </div>
-    </a>
-    <a class="console-tile console-tile-link console-tile-about" href="${urlFor('about/')}">
-      <div class="console-tile-head">${ICON_INFO}<span>关于</span>${ICON_ARROW}</div>
-      <div class="console-tile-about-body">${escapeHtml(site.subtitle || site.description || '')}</div>
     </a>
   </div>
 </div></div>`;

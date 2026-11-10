@@ -410,7 +410,7 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
 
 #console .console-panel-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
   padding: 0 24px 24px;
 }
@@ -425,7 +425,7 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
   opacity: 0;
 }
 
-/* 上面一整条「最近写」通栏,下面「标签 / 归档 / 关于」三块等宽:
+/* 上面一整条「最近写」通栏,下面「标签 / 归档」两块等宽:
    对称的骨架 + 一块视觉重心,不靠内容堆满来撑场面 */
 #console .console-tile-hero {
   grid-column: 1 / -1;
@@ -439,7 +439,7 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
   );
 }
 
-/* 入场节奏:面板先落下,四张卡片错峰浮起,数字最后弹一下 */
+/* 入场节奏:面板先落下,三张卡片错峰浮起,数字最后弹一下 */
 #console.show .console-tile {
   animation: console-tile-in 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
@@ -454,10 +454,6 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
 
 #console.show .console-tile-archive {
   animation-delay: 0.2s;
-}
-
-#console.show .console-tile-about {
-  animation-delay: 0.27s;
 }
 
 @keyframes console-tile-in {
@@ -599,7 +595,8 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
   flex-wrap: wrap;
   align-content: center;
   align-items: baseline;
-  column-gap: 16px;
+  justify-content: center;
+  column-gap: 18px;
   row-gap: 7px;
   max-height: 118px;
   overflow: hidden;
@@ -658,7 +655,7 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
   font-size: 13px;
 }
 
-/* 底部三个入口:等高等宽,归档用大号篇数做第二视觉重心 */
+/* 底部两个入口:等高等宽,归档用大号篇数做第二视觉重心 */
 #console .console-tile-link {
   display: flex;
   flex-direction: column;
@@ -687,6 +684,7 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
 #console .console-tile-stat {
   display: flex;
   align-items: baseline;
+  justify-content: center;
   gap: 10px;
   margin-block: auto;
 }
@@ -717,7 +715,6 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
 
 #console .console-stat-text {
   display: flex;
-  flex: 1;
   flex-direction: column;
   gap: 3px;
 }
@@ -732,17 +729,6 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
   color: var(--anzhiyu-secondtext);
   font-size: 12px;
   font-style: normal;
-}
-
-#console .console-tile-about-body {
-  display: -webkit-box;
-  margin-block: auto;
-  overflow: hidden;
-  color: var(--anzhiyu-secondtext);
-  font-size: 13px;
-  line-height: 1.65;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
 }
 
 #console .console-tile-arrow {
