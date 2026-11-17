@@ -298,6 +298,422 @@ main#blog-container {
   }
 }
 
+/* 上锁的文件夹:和普通文件夹同形,但用主色提示需要密码 */
+.folder-archive-locked {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  border: 1px solid rgba(86, 69, 212, 0.22);
+  background: linear-gradient(180deg, rgba(86, 69, 212, 0.05), var(--anzhiyu-card-bg) 70%);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  appearance: none;
+}
+
+.folder-archive-locked:hover {
+  border-color: rgba(86, 69, 212, 0.4);
+}
+
+.folder-archive-locked:focus-visible {
+  outline: 2px solid rgba(86, 69, 212, 0.45);
+  outline-offset: 2px;
+}
+
+.folder-archive-locked .folder-archive-head {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.folder-archive-locked:hover .folder-archive-chevron {
+  color: var(--anzhiyu-main);
+  transform: translateX(2px);
+}
+
+.folder-archive-count-locked {
+  background: rgba(86, 69, 212, 0.1);
+  color: var(--anzhiyu-main);
+}
+
+/* ===== 私密:密码对话框与阅读面板 ===== */
+
+html.vault-page-locked,
+html.vault-page-locked body {
+  overflow: hidden;
+}
+
+.vault-dialog {
+  width: min(760px, calc(100vw - 32px));
+  max-width: none;
+  max-height: min(88vh, 780px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 18px;
+  background: transparent;
+  color: var(--anzhiyu-fontcolor);
+  font-family: var(--anzhiyu-font);
+  overflow: visible;
+}
+
+.vault-dialog::backdrop {
+  background: rgba(55, 53, 47, 0.42);
+  backdrop-filter: blur(5px);
+  animation: vault-backdrop-in 0.24s ease;
+}
+
+.vault-shell {
+  display: flex;
+  flex-direction: column;
+  max-height: min(88vh, 780px);
+  overflow: hidden;
+  border: 1px solid var(--anzhiyu-card-border);
+  border-radius: 18px;
+  background: var(--anzhiyu-card-bg);
+  box-shadow: 0 28px 80px rgba(24, 21, 15, 0.24), 0 2px 6px rgba(24, 21, 15, 0.08);
+  animation: vault-rise 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.vault-head {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--anzhiyu-card-border);
+  background: var(--anzhiyu-secondbg);
+}
+
+.vault-badge {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  background: rgba(86, 69, 212, 0.1);
+  color: var(--anzhiyu-main);
+}
+
+.vault-heading {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.vault-title {
+  margin: 0;
+  color: var(--anzhiyu-fontcolor);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.vault-sub {
+  overflow: hidden;
+  font-size: 11.5px;
+  color: var(--anzhiyu-secondtext);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vault-icon-btn {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--anzhiyu-secondtext);
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.vault-icon-btn:hover,
+.vault-icon-btn:focus-visible {
+  background: var(--anzhiyu-card-bg);
+  color: var(--anzhiyu-fontcolor);
+  outline: none;
+}
+
+.vault-stage {
+  padding: 24px 22px;
+}
+
+.vault-stage[hidden] {
+  display: none !important;
+}
+
+.vault-lock-stage {
+  padding: 26px 24px 22px;
+}
+
+.vault-copy {
+  margin: 0 0 16px;
+  font-size: 14px;
+  color: var(--anzhiyu-lighttext);
+}
+
+.vault-form {
+  display: flex;
+  gap: 10px;
+}
+
+.vault-input {
+  flex: 1;
+  min-width: 0;
+  height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--anzhiyu-card-border);
+  border-radius: 11px;
+  background: var(--anzhiyu-background);
+  color: var(--anzhiyu-fontcolor);
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.vault-input:focus {
+  border-color: var(--anzhiyu-main);
+  box-shadow: 0 0 0 3px rgba(86, 69, 212, 0.16);
+}
+
+.vault-submit {
+  flex: none;
+  height: 42px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 11px;
+  background: var(--anzhiyu-main);
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.18s ease, transform 0.18s ease, opacity 0.18s ease;
+}
+
+.vault-submit:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.vault-submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+  transform: none;
+}
+
+.vault-message {
+  min-height: 18px;
+  margin: 10px 0 0;
+  font-size: 12.5px;
+  color: var(--anzhiyu-main);
+}
+
+.vault-message[data-tone="error"] {
+  color: #c05048;
+}
+
+.vault-footnote {
+  margin: 4px 0 0;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--anzhiyu-secondtext);
+}
+
+.vault-list-stage {
+  display: flex;
+  flex-direction: column;
+  max-height: min(62vh, 560px);
+  padding: 10px 10px 12px;
+  overflow: hidden;
+}
+
+.vault-list-head {
+  display: flex;
+  flex: none;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 8px 10px;
+  font-size: 12px;
+  color: var(--anzhiyu-secondtext);
+}
+
+.vault-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.vault-list-item {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  width: 100%;
+  padding: 11px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--anzhiyu-fontcolor);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.vault-list-item:hover,
+.vault-list-item:focus-visible {
+  background: var(--anzhiyu-secondbg);
+  color: var(--anzhiyu-main);
+  outline: none;
+}
+
+.vault-list-item:focus-visible {
+  box-shadow: inset 0 0 0 2px rgba(86, 69, 212, 0.35);
+}
+
+.vault-list-date {
+  flex: none;
+  font-size: 12px;
+  color: var(--anzhiyu-secondtext);
+  font-variant-numeric: tabular-nums;
+}
+
+.vault-list-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 14.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vault-read-stage {
+  max-height: min(66vh, 600px);
+  padding: 16px 24px 28px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.vault-back {
+  margin: 0 0 14px;
+  padding: 6px 10px 6px 6px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--anzhiyu-secondtext);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.vault-back:hover,
+.vault-back:focus-visible {
+  background: var(--anzhiyu-secondbg);
+  color: var(--anzhiyu-main);
+  outline: none;
+}
+
+.vault-entry {
+  max-width: 66ch;
+  margin: 0 auto;
+}
+
+.vault-entry-title {
+  margin: 0 0 6px;
+  color: var(--anzhiyu-fontcolor);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.vault-entry-date {
+  display: block;
+  margin-bottom: 18px;
+  font-size: 12px;
+  color: var(--anzhiyu-secondtext);
+}
+
+.vault-entry-body {
+  overflow-wrap: anywhere;
+  color: var(--anzhiyu-fontcolor);
+  font-size: 15px;
+  line-height: 1.9;
+  white-space: pre-wrap;
+}
+
+@keyframes vault-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes vault-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .vault-dialog {
+    width: calc(100vw - 20px);
+    max-height: 92vh;
+  }
+
+  .vault-shell {
+    max-height: 92vh;
+  }
+
+  .vault-lock-stage {
+    padding: 20px 18px;
+  }
+
+  .vault-form {
+    flex-direction: column;
+  }
+
+  .vault-submit {
+    width: 100%;
+  }
+
+  .vault-input {
+    font-size: 16px;
+  }
+
+  .vault-list-stage {
+    max-height: 66vh;
+  }
+
+  .vault-read-stage {
+    max-height: 70vh;
+    padding: 14px 18px 24px;
+  }
+
+  .vault-entry-title {
+    font-size: 19px;
+  }
+}
+
 /* ===== 以下为按需隐藏的冗余模块(想恢复删掉对应段即可) ===== */
 
 /* 欢迎卡社交图标墙(画蛇添足) */
@@ -806,6 +1222,11 @@ a.back-menu-item[href="https://hexo.anheyu.com/"],
     opacity: 1;
     filter: none;
     transform: none;
+  }
+
+  .vault-shell,
+  .vault-dialog::backdrop {
+    animation: none;
   }
 }
 

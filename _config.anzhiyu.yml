@@ -1223,7 +1223,7 @@ inject:
 
   bottom:
     # 自定义js
-    # - <script src="/js/xxx"></script>
+    - <script src="/js/vault.js" defer></script>
 
 # CDN
 # Don't modify the following settings unless you know how they work

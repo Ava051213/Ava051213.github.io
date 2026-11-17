@@ -5,7 +5,12 @@
  * 数据直接取自 Hexo 的文章集合,新增分类/文章后无需手动维护。
  */
 
+const fs = require('fs');
+const path = require('path');
+
 const FOLDER_ICON = `<svg class="folder-archive-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5v-11Z" fill="#f3e2bf" stroke="#c99a4a" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
+
+const LOCK_ICON = `<svg class="folder-archive-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="4.5" y="10" width="15" height="10" rx="2.2" fill="#efeafd" stroke="#5645d4" stroke-width="1.5"/><path d="M8 10V7.8a4 4 0 0 1 8 0V10" fill="none" stroke="#5645d4" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="14.6" r="1.2" fill="#5645d4"/><path d="M12 15.6v1.8" stroke="#5645d4" stroke-width="1.5" stroke-linecap="round"/></svg>`;
 
 const CHEVRON_ICON = `<svg class="folder-archive-chevron" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
@@ -45,7 +50,18 @@ function renderFolder(folder) {
 </details>`;
 }
 
-function buildArchiveHtml(posts) {
+function renderLockedFolder() {
+  return `<button type="button" class="folder-archive-item folder-archive-locked" data-vault-open aria-haspopup="dialog">
+  <span class="folder-archive-head">
+    ${LOCK_ICON}
+    <span class="folder-archive-name">私密</span>
+    <span class="folder-archive-count folder-archive-count-locked">已加密</span>
+    ${CHEVRON_ICON}
+  </span>
+</button>`;
+}
+
+function buildArchiveHtml(posts, hasVault) {
   const folders = new Map();
 
   posts.forEach(post => {
@@ -66,13 +82,18 @@ function buildArchiveHtml(posts) {
     return diff || a.name.localeCompare(b.name, 'zh-CN');
   });
 
-  const body = list.length
-    ? list.map(renderFolder).join('')
-    : '<p class="folder-archive-empty">还没有发布文章。</p>';
+  const body = [
+    hasVault ? renderLockedFolder() : '',
+    ...list.map(renderFolder)
+  ].join('') || '<p class="folder-archive-empty">还没有发布文章。</p>';
+
+  const hint = hasVault
+    ? `共 ${list.length + 1} 个文件夹 · ${posts.length} 篇公开文章 · 点击展开`
+    : `共 ${list.length} 个文件夹、${posts.length} 篇文章 · 点击展开`;
 
   return `<div class="folder-archive">
   <h1 class="folder-archive-title">归档</h1>
-  <p class="folder-archive-hint">共 ${list.length} 个文件夹、${posts.length} 篇文章 · 点击展开</p>
+  <p class="folder-archive-hint">${hint}</p>
   ${body}
 </div>`;
 }
@@ -119,6 +140,7 @@ hexo.extend.filter.register('after_render:html', function (str, data) {
     .filter(post => post.published !== false)
     .sort((a, b) => b.date.valueOf() - a.date.valueOf());
 
-  const archiveHtml = `<div id="archive">${buildArchiveHtml(posts)}</div>`;
+  const hasVault = fs.existsSync(path.join(this.base_dir, 'source', 'private-vault.json'));
+  const archiveHtml = `<div id="archive">${buildArchiveHtml(posts, hasVault)}</div>`;
   return str.slice(0, start) + archiveHtml + str.slice(aside);
 });
